@@ -7,14 +7,44 @@
   <style>
     /* --- ESTILOS GENERALES --- */
     body, html { margin: 0; padding: 0; height: 100%; font-family: Arial, sans-serif; }
-    #map { height: 100vh; width: 100%; }
+    /* Se ajusta el ancho del mapa para dejar espacio al panel lateral */
+    #map { height: 100vh; width: calc(100% - 260px); }
+    
+    /* --- PANEL DE PUNTOS DE INTERÉS --- */
+    #poiListPanel {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 260px;
+      height: 100vh;
+      background: rgba(255,255,255,0.95);
+      overflow-y: auto;
+      padding: 10px;
+      box-shadow: -2px 0 5px rgba(0,0,0,0.3);
+      z-index: 1000;
+    }
+    #poiListPanel h3 {
+      margin-top: 0;
+      text-align: center;
+    }
+    #poiList {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    #poiList li {
+      margin: 5px 0;
+      padding: 5px;
+      border-bottom: 1px solid #ccc;
+      font-size: 14px;
+    }
 
     /* --- CONTROLES PRINCIPALES (Guardado) --- */
     #controls {
       position: absolute;
       top: 20px;
       left: 20px;
-      z-index: 1000;
+      z-index: 1100;
       background: rgba(255, 255, 255, 0.9);
       padding: 15px;
       border-radius: 10px;
@@ -34,12 +64,12 @@
     }
     button:hover { background: #0056b3; }
 
-    /* --- BUSCADOR DE UBICACIÓN (AHORA EN LA DERECHA) --- */
+    /* --- BUSCADOR DE UBICACIÓN (AHORA EN LA DERECHA, encima del panel) --- */
     #searchContainer {
       position: absolute;
       top: 20px;
-      right: 20px;
-      z-index: 1000;
+      right: 280px;
+      z-index: 1100;
       background: rgba(255, 255, 255, 0.9);
       padding: 8px;
       border-radius: 10px;
@@ -78,7 +108,7 @@
       animation: fadeIn 0.3s ease-in-out;
     }
     #poiForm h3 { margin-bottom: 10px; color: #333; }
-    #poiForm input { width: calc(100% - 20px); }
+    #poiForm input { width: calc(100% - 20px); margin-bottom: 10px; }
     #poiForm button {
       margin-top: 10px;
       width: 48%;
@@ -99,13 +129,19 @@
     <button id="saveBtn">Guardar Puntos de Interés</button>
   </div>
 
-  <!-- Buscador en la parte derecha -->
+  <!-- Buscador (ahora posicionado a la izquierda del panel de puntos) -->
   <div id="searchContainer">
     <input id="searchBox" type="text" placeholder="Buscar ubicación...">
     <button id="searchBtn">🔍</button>
   </div>
 
   <div id="map"></div>
+
+  <!-- Panel lateral para listar puntos de interés -->
+  <div id="poiListPanel">
+    <h3>Puntos de Interés</h3>
+    <ul id="poiList"></ul>
+  </div>
 
   <!-- Formulario para añadir puntos -->
   <div id="poiForm">
