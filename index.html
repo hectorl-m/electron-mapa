@@ -1,158 +1,27 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Mapa de Puntos de Interés</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Preguntas Geolocalizadas</title>
+  <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <style>
-    /* --- ESTILOS GENERALES --- */
-    body, html { margin: 0; padding: 0; height: 100%; font-family: Arial, sans-serif; }
-    /* Se ajusta el ancho del mapa para dejar espacio al panel lateral */
-    #map { height: 100vh; width: calc(100% - 260px); }
-    
-    /* --- PANEL DE PUNTOS DE INTERÉS --- */
-    #poiListPanel {
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 260px;
-      height: 100vh;
-      background: rgba(255,255,255,0.95);
-      overflow-y: auto;
-      padding: 10px;
-      box-shadow: -2px 0 5px rgba(0,0,0,0.3);
-      z-index: 1000;
-    }
-    #poiListPanel h3 {
-      margin-top: 0;
-      text-align: center;
-    }
-    #poiList {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    #poiList li {
-      margin: 5px 0;
-      padding: 5px;
-      border-bottom: 1px solid #ccc;
-      font-size: 14px;
-    }
-
-    /* --- CONTROLES PRINCIPALES (Guardado) --- */
-    #controls {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      z-index: 1100;
-      background: rgba(255, 255, 255, 0.9);
-      padding: 15px;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-    button {
-      width: 100%;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      font-size: 14px;
-      background: #007BFF;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    button:hover { background: #0056b3; }
-
-    /* --- BUSCADOR DE UBICACIÓN (AHORA EN LA DERECHA, encima del panel) --- */
-    #searchContainer {
-      position: absolute;
-      top: 20px;
-      right: 280px;
-      z-index: 1100;
-      background: rgba(255, 255, 255, 0.9);
-      padding: 8px;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      display: flex;
-      gap: 5px;
-    }
-    #searchBox {
-      width: 150px;
-      padding: 5px;
-      font-size: 12px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    #searchBtn {
-      padding: 5px 10px;
-      font-size: 12px;
-      background: #28a745;
-    }
-    #searchBtn:hover { background: #218838; }
-
-    /* --- FORMULARIO PARA PUNTOS DE INTERÉS --- */
-    #poiForm {
-      display: none;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: white;
-      padding: 20px;
-      width: 300px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      border-radius: 10px;
-      z-index: 2000;
-      text-align: center;
-      animation: fadeIn 0.3s ease-in-out;
-    }
-    #poiForm h3 { margin-bottom: 10px; color: #333; }
-    #poiForm input { width: calc(100% - 20px); margin-bottom: 10px; }
-    #poiForm button {
-      margin-top: 10px;
-      width: 48%;
-      display: inline-block;
-    }
-    #cancelPoiBtn { background: #dc3545; }
-    #cancelPoiBtn:hover { background: #b02a37; }
-
-    /* --- ANIMACIONES --- */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translate(-50%, -60%); }
-      to { opacity: 1; transform: translate(-50%, -50%); }
-    }
-  </style>
 </head>
 <body>
-  <div id="controls">
-    <button id="saveBtn">Guardar Puntos de Interés</button>
-  </div>
-
-  <!-- Buscador (ahora posicionado a la izquierda del panel de puntos) -->
-  <div id="searchContainer">
-    <input id="searchBox" type="text" placeholder="Buscar ubicación...">
-    <button id="searchBtn">🔍</button>
-  </div>
+  <select id="municipioSelect">
+    <option value="">Selecciona un municipio</option>
+    <option value="javea">Jávea</option>
+    <!-- Puedes añadir más municipios -->
+  </select>
 
   <div id="map"></div>
-
-  <!-- Panel lateral para listar puntos de interés -->
-  <div id="poiListPanel">
-    <h3>Puntos de Interés</h3>
-    <ul id="poiList"></ul>
-  </div>
-
-  <!-- Formulario para añadir puntos -->
-  <div id="poiForm">
-    <h3>Añadir Punto de Interés</h3>
-    <input id="poiTitle" type="text" placeholder="Título">
-    <input id="poiDescription" type="text" placeholder="Descripción">
-    <button id="addPoiBtn">Añadir</button>
-    <button id="cancelPoiBtn">Cancelar</button>
+  <div id="preguntaContainer" class="hidden">
+    <h2 id="tituloLugar"></h2>
+    <p id="preguntaTexto"></p>
+    <div id="respuestas"></div>
   </div>
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="./renderer.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

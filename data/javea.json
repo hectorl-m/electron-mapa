@@ -1,0 +1,15 @@
+[
+  {
+    "title": "IES La Mar",
+    "question": "¿Cual es el mejor grado de este instituto?",
+    "answers": [
+      "Informática ASIR",
+      "Sanitaria",
+      "Informática DAM",
+      "Informática DAW"
+    ],
+    "correct": 3,
+    "lat": 38.78867412779792,
+    "lon": 0.17850490373147126
+  }
+]
