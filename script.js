@@ -35,7 +35,12 @@ async function loadQuestions(municipio) {
 function initMap() {
   map = L.map('map').setView([38.79, 0.17], 14);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-  userMarker = L.marker([0, 0]).addTo(map).bindPopup("Tú estás aquí");
+  userMarker = L.circleMarker([0, 0], {
+  radius: 6,
+  color: 'red',
+  fillColor: 'red',
+  fillOpacity: 0.8
+}).addTo(map).bindPopup("Tú estás aquí");
 
   navigator.geolocation.watchPosition(
     pos => {
