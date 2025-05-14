@@ -74,7 +74,7 @@ function checkNearby() {
   }
 
   info.textContent = `Estás a ${Math.round(nearestDist)} m de: ${nearest.title}`;
-  if (nearestDist < 20) {
+  if (nearestDist < 40) {
     showQuestion(nearest);
   }
 }

@@ -1,37 +1,70 @@
 body {
     margin: 0;
-    font-family: sans-serif;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f0f4f8;
+    color: #333;
   }
   
   #municipioSelect {
     width: 100%;
     padding: 1em;
-    font-size: 1.2em;
+    font-size: 1.1em;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background-color: white;
+    margin-bottom: 10px;
   }
   
   #map {
     height: 60vh;
+    border-bottom: 2px solid #ccc;
   }
   
   #infoDistancia {
     padding: 1em;
-    background-color: #eef;
+    background-color: #e6f0ff;
+    color: #003366;
     font-weight: bold;
+    text-align: center;
+    border-bottom: 1px solid #ccd;
   }
   
   #preguntaContainer {
-    padding: 1em;
-    background-color: #f9f9f9;
+    padding: 1.5em;
+    background-color: white;
+    border-top: 2px solid #0077cc;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  #preguntaContainer h2 {
+    margin-top: 0;
+    color: #0077cc;
+  }
+  
+  #preguntaTexto {
+    font-size: 1.1em;
+    margin: 1em 0;
+  }
+  
+  #respuestas button {
+    display: block;
+    width: 100%;
+    margin: 0.5em 0;
+    padding: 0.8em;
+    font-size: 1em;
+    background-color: #0077cc;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  #respuestas button:hover {
+    background-color: #005fa3;
   }
   
   .hidden {
     display: none;
-  }
-  
-  button {
-    margin: 0.5em 0;
-    padding: 0.5em;
-    width: 100%;
-    font-size: 1em;
   }
   
