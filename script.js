@@ -1,20 +1,34 @@
-let map, userMarker, questions = [], asked = new Set(), currentPos = null;
+let map, userMarker, questions = [], asked = new Set(), currentPos = null, municipioCargado = false;
 
 document.getElementById('municipioSelect').addEventListener('change', async (e) => {
   const municipio = e.target.value;
   if (!municipio) return;
-  questions = await fetch(`data/${municipio}.json`).then(res => res.json());
-  asked.clear();
-  if (!map) initMap();
+
+  try {
+    const res = await fetch(`data/${municipio}.json`);
+    questions = await res.json();
+    asked.clear();
+    municipioCargado = true;
+    if (!map) {
+      initMap();
+    } else {
+      document.getElementById('infoDistancia').textContent = "Esperando ubicación...";
+    }
+  } catch (err) {
+    alert("Error al cargar el archivo del municipio.");
+    console.error(err);
+  }
 });
 
 function initMap() {
   map = L.map('map').setView([38.79, 0.17], 14);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-
   userMarker = L.marker([0, 0]).addTo(map).bindPopup("Tú estás aquí");
 
-  navigator.geolocation.watchPosition(updateUserLocation, console.error, {
+  navigator.geolocation.watchPosition(updateUserLocation, (err) => {
+    console.error(err);
+    document.getElementById('infoDistancia').textContent = "Error al obtener ubicación.";
+  }, {
     enableHighAccuracy: true,
     maximumAge: 1000
   });
@@ -25,7 +39,7 @@ function updateUserLocation(pos) {
   userMarker.setLatLng(currentPos);
   map.setView(currentPos);
 
-  checkNearby();
+  if (municipioCargado) checkNearby();
 }
 
 function checkNearby() {
