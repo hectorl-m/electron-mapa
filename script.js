@@ -31,14 +31,27 @@ function updateUserLocation(pos) {
 function checkNearby() {
   if (!currentPos || questions.length === 0) return;
 
+  let nearest = null;
+  let nearestDist = Infinity;
+
   for (const q of questions) {
     if (asked.has(q.title)) continue;
 
     const dist = getDistance(currentPos[0], currentPos[1], q.lat, q.lon);
-    if (dist < 20) {
-      showQuestion(q);
-      return;
+    if (dist < nearestDist) {
+      nearest = q;
+      nearestDist = dist;
     }
+  }
+
+  const info = document.getElementById('infoDistancia');
+  if (nearest) {
+    info.textContent = `Estás a ${Math.round(nearestDist)} metros de: ${nearest.title}`;
+    if (nearestDist < 20) {
+      showQuestion(nearest);
+    }
+  } else {
+    info.textContent = "No hay más preguntas disponibles.";
   }
 }
 
@@ -59,7 +72,7 @@ function showQuestion(q) {
     btn.onclick = () => {
       alert(i === q.correct ? "✅ ¡Correcto!" : "❌ Incorrecto");
       container.classList.add('hidden');
-      setTimeout(checkNearby, 1000); // intentar buscar la siguiente
+      setTimeout(checkNearby, 1000);
     };
     respuestas.appendChild(btn);
   });
